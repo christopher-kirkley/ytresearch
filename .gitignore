@@ -8,3 +8,28 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment and config
+.env
+config.yaml
+
+# Media files
+*.m4a
+*.mp3
+*.mp4
+*.webm
+*.opus
+*.ogg
+*.wav
+*.flac
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# Database and logs
+archive.db
+failed.log
+
+# uv
+uv.lock
