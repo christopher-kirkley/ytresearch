@@ -51,6 +51,7 @@ def process_video(
     total: int = 1,
 ) -> ProcessingResult:
     """Process a single video through the full pipeline."""
+    url = url.replace("\\", "")
     video_id = youtube.extract_video_id(url)
 
     # Check for existing track

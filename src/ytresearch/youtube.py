@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
 
 def extract_video_id(url: str) -> str:
     """Extract the video ID from a YouTube URL."""
+    # Strip shell escape characters (zsh pastes \? \= etc.)
+    url = url.replace("\\", "")
     patterns = [
         r"(?:v=|/v/|youtu\.be/)([a-zA-Z0-9_-]{11})",
         r"(?:shorts/)([a-zA-Z0-9_-]{11})",
