@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS tracks (
     genre                 TEXT,
     view_count            INTEGER,
     summary               TEXT,
+    summary_short         TEXT,
 
     uploader              TEXT,
     uploader_id           TEXT,
@@ -70,11 +71,11 @@ def insert_track(conn: sqlite3.Connection, result: ProcessingResult) -> None:
         """INSERT OR REPLACE INTO tracks (
             youtube_url, youtube_id,
             artist, song, year, country, language_ethnic_group,
-            genre, view_count, summary,
+            genre, view_count, summary, summary_short,
             uploader, uploader_id, upload_date, duration_seconds,
             like_count, comment_count, description, tags, categories,
             channel_url, audio_path, video_path, thumbnail_path
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         (
             video["youtube_url"],
             video["youtube_id"],
@@ -86,6 +87,7 @@ def insert_track(conn: sqlite3.Connection, result: ProcessingResult) -> None:
             analysis.get("genre"),
             video.get("view_count"),
             analysis.get("summary"),
+            analysis.get("summary_short"),
             video["uploader"],
             video["uploader_id"],
             video["upload_date"],
@@ -113,7 +115,7 @@ def update_track_analysis(
         """UPDATE tracks SET
             artist = ?, song = ?, year = ?, country = ?,
             language_ethnic_group = ?, genre = ?,
-            summary = ?, reprocessed_at = ?
+            summary = ?, summary_short = ?, reprocessed_at = ?
         WHERE youtube_id = ?""",
         (
             analysis["artist"],
@@ -123,6 +125,7 @@ def update_track_analysis(
             analysis["language_ethnic_group"],
             analysis["genre"],
             analysis["summary"],
+            analysis["summary_short"],
             now,
             youtube_id,
         ),

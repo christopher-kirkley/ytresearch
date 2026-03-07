@@ -35,13 +35,14 @@ class TestParseResponse:
             "language_ethnic_group": "Bemba",
             "genre": "Zambian Pop",
             "summary": "A tribute song.",
+            "summary_short": "Bemba tribute to artist's father.",
         })
         result = parse_response(raw)
         assert result["artist"] == "Josi"
         assert result["year"] == 2010
 
     def test_strips_markdown_fences(self) -> None:
-        raw = '```json\n{"artist": "Josi", "song": "Captain Charlie", "year": 2010, "country": "Zambia", "language_ethnic_group": "Bemba", "genre": "Zambian Pop", "summary": "A tribute."}\n```'
+        raw = '```json\n{"artist": "Josi", "song": "Captain Charlie", "year": 2010, "country": "Zambia", "language_ethnic_group": "Bemba", "genre": "Zambian Pop", "summary": "A tribute.", "summary_short": "Short."}\n```'
         result = parse_response(raw)
         assert result["artist"] == "Josi"
 

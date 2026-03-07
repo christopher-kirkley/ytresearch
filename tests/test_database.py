@@ -67,6 +67,7 @@ class TestUpdateAnalysis:
             language_ethnic_group="Bemba",
             genre="Zambian Pop",
             summary="Updated summary.",
+            summary_short="Updated short.",
         )
         update_track_analysis(db, "dQw4w9WgXcQ", updated)
 

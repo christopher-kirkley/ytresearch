@@ -56,12 +56,19 @@ class TestWriteTags:
         assert "Bemba" in str(tags["TCON"])
         assert "Zambia" in str(tags["TCON"])
 
-    def test_comment_format(self, mp3_file: Path, sample_analysis: TrackAnalysis) -> None:
+    def test_comment_has_short_summary(self, mp3_file: Path, sample_analysis: TrackAnalysis) -> None:
         write_tags(mp3_file, sample_analysis, view_count=1674214)
         tags = ID3(str(mp3_file))
         comment = str(tags["COMM::eng"])
-        assert comment.startswith("A tribute song")
-        assert "Views: 1,674,214" in comment
+        assert "Pacific Islands" in comment
+        assert len(comment) <= 250
+
+    def test_lyrics_has_full_summary(self, mp3_file: Path, sample_analysis: TrackAnalysis) -> None:
+        write_tags(mp3_file, sample_analysis, view_count=1674214)
+        tags = ID3(str(mp3_file))
+        lyrics = str(tags["USLT::eng"])
+        assert lyrics.startswith("A tribute song")
+        assert "Views: 1,674,214" in lyrics
 
     def test_grouping_tag(self, mp3_file: Path, sample_analysis: TrackAnalysis) -> None:
         write_tags(mp3_file, sample_analysis)

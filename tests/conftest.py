@@ -43,4 +43,5 @@ def sample_analysis() -> TrackAnalysis:
         language_ethnic_group="Bemba",
         genre="Zambian Pop",
         summary="A tribute song by Josi to his father, Captain Charlie.",
+        summary_short="Bemba-language tribute to the artist's father, a beloved Zambian classic with a surprising Pacific Islands fanbase.",
     )
