@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from ytresearch.analyzer import build_prompt, parse_response
+from ytresearch.metadata.analyzer import build_prompt, parse_response
 from ytresearch.types import Comment, VideoMetadata
 
 

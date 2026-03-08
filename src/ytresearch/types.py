@@ -40,7 +40,29 @@ class TrackAnalysis(TypedDict):
 class ProcessingResult(TypedDict):
     video: VideoMetadata
     analysis: TrackAnalysis | None
+    comments_json: str | None
     audio_path: str | None
     video_path: str | None
     status: Literal["success", "partial", "failed"]
     error: str | None
+
+
+class TrackRow(TypedDict):
+    """A row from the tracks table, used for --reprocess-all."""
+    youtube_id: str
+    youtube_url: str
+    view_count: int
+    comments_json: str | None
+    audio_path: str | None
+    # Raw metadata fields for reconstructing VideoMetadata
+    title: str | None
+    description: str | None
+    uploader: str | None
+    uploader_id: str | None
+    upload_date: str | None
+    duration_seconds: int | None
+    like_count: int | None
+    comment_count: int | None
+    tags: str | None  # JSON string
+    categories: str | None  # JSON string
+    channel_url: str | None

@@ -10,6 +10,7 @@ dependencies = [
     "python-dotenv",
     "yt-dlp",
     "youtube-comment-downloader",
+    "requests",
 ]
 
 [project.scripts]
