@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from mutagen.id3 import ID3
 
-from ytresearch.tagger import embed_thumbnail, write_tags
+from ytresearch.media.tagger import embed_thumbnail, write_tags
 from ytresearch.types import TrackAnalysis
 
 pytestmark = pytest.mark.skipif(
@@ -92,4 +92,3 @@ class TestEmbedThumbnail:
     def test_missing_thumbnail(self, mp3_file: Path, tmp_path: Path, sample_analysis: TrackAnalysis) -> None:
         write_tags(mp3_file, sample_analysis)
         embed_thumbnail(mp3_file, tmp_path / "nonexistent.jpg")
-        # Should not raise, just log warning

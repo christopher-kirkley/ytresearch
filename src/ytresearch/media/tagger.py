@@ -75,7 +75,7 @@ def embed_thumbnail(audio_path: Path, thumbnail_path: Path) -> None:
         APIC(
             encoding=3,
             mime="image/jpeg",
-            type=3,  # front cover
+            type=3,
             desc="Cover",
             data=image_data,
         )
