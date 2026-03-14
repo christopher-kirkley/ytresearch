@@ -22,7 +22,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         prog="ytresearch",
         description="YouTube music research archiver",
     )
-    parser.add_argument("url", nargs="?", help="YouTube video or playlist URL")
+    parser.add_argument("url", nargs="*", help="YouTube video or playlist URL (no quotes needed)")
     parser.add_argument("--audio-dir", type=Path, default=DEFAULT_AUDIO_DIR)
     parser.add_argument("--video-dir", type=Path, default=DEFAULT_VIDEO_DIR)
     parser.add_argument("--db-path", type=Path, default=DEFAULT_DB_PATH)
@@ -383,18 +383,21 @@ def main(argv: list[str] | None = None) -> None:
             logger.error("URL is required (unless using --reprocess-all)")
             sys.exit(1)
 
-        if scraper.is_playlist_url(args.url):
+        # Shell splits unquoted URLs on & — rejoin fragments into one URL
+        url = "".join(args.url)
+
+        if scraper.is_playlist_url(url):
             print("Fetching playlist...")
-            urls = scraper.get_playlist_video_urls(args.url)
+            urls = scraper.get_playlist_video_urls(url)
             print(f"Found {len(urls)} videos\n")
-            for i, url in enumerate(urls, 1):
+            for i, u in enumerate(urls, 1):
                 try:
-                    process_video(url, args, db, index=i, total=len(urls))
+                    process_video(u, args, db, index=i, total=len(urls))
                 except Exception as e:
-                    logger.error("[%d/%d] Failed: %s — %s", i, len(urls), url, e)
+                    logger.error("[%d/%d] Failed: %s — %s", i, len(urls), u, e)
                 print()
         else:
-            process_video(args.url, args, db)
+            process_video(url, args, db)
     finally:
         if db:
             db.close()
